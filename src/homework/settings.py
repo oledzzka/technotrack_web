@@ -83,7 +83,6 @@ DATABASES = {
         'USER':'root',
         'PASSWORD': '1qaz@WSX',
         'HOST':'localhost',
-
     }
 }
 
