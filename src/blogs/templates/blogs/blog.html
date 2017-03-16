@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    Blog{{ object.id }}
+{% endblock %}
+
+{% block body %}
+    <h5><a href="{% url 'blogs:blog_list' %}">Список блогов</a></h5>
+    <h2>Блог: {{ object.title }}</h2>
+    <h3>Автор: {{ object.author }}</h3>
+    <a>Дата: {{ object.date }}</a>
+    {% if object.posts.all %}
+        <h2>Посты</h2>
+        {% for post in object.posts.all %}
+            <b><a href="{% url 'blogs:post' pk=post.id%}">{{ post.title }}</a></b><br>
+            <a>{{ post.description }}</a><br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

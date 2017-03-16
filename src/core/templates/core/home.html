@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    HOME
+{% endblock %}
+
+{% block body %}
+    <h1><a href="{% url 'blogs:blog_list'%}">Список блогов</a></h1>
+    <p>Количество блогов: <b>{{ blogs_count }}</b></p>
+    <p>Количество постов: <b>{{ posts_count }}</b></p>
+{% endblock %}

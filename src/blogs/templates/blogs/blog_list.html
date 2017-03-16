@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+        All blogs
+{% endblock %}
+
+{% block body %}
+    <h5><a href="{% url "home:home" %}">Домой</a></h5>
+    {% for blog in object_list %}
+        <div><a href="{% url 'blogs:blog' pk=blog.id %}">{{ blog.id }} {{ blog.title }}</a></div>
+    {% endfor %}
+{% endblock %}
