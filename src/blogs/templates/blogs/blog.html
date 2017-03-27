@@ -8,12 +8,22 @@
     <h5><a href="{% url 'blogs:blog_list' %}">Список блогов</a></h5>
     <h2>Блог: {{ object.title }}</h2>
     <h3>Автор: {{ object.author }}</h3>
-    <a>Дата: {{ object.date }}</a>
+    <a>Дата: {{ object.date }}</a><br>
+    {% if object.category.all %}
+        <h4><a>Категории:</a><br></h4>
+        {% for category in  object.category.all%}
+            <p>{{ forloop.counter }}){{ category.name }}<br></p>
+        {% endfor %}
+    {% endif %}
     {% if object.posts.all %}
         <h2>Посты</h2>
         {% for post in object.posts.all %}
             <b><a href="{% url 'blogs:post' pk=post.id%}">{{ post.title }}</a></b><br>
-            <a>{{ post.description }}</a><br>
+            <a>Описание:{{ post.description }}</a>
+            {% if blog.author == user %}
+                    <a href="{%  url "blogs:edit_post" pk=post.id %}">Редактировать</a>
+            {% endif %}
+            <br>
         {% endfor %}
     {% endif %}
 {% endblock %}

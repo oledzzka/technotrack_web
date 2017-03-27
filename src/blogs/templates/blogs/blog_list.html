@@ -5,8 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    <h5><a href="{% url "home:home" %}">Домой</a></h5>
+    <h3><a href="{% url "home:home" %}">Домой</a></h3>
+    <div>
+        <form method="get" action="{% url "blogs:blog_list" %}">
+            {{ sortform.sort }}
+            {{ sortform.search.label_tag }}{{ sortform.search }}
+            <input type="submit">
+        </form>
+    </div>
+    <h2><a href="{%  url "blogs:add_blog" %}">Создать новый блог</a></h2>
+    <h3><a href="{% url 'blogs:add_post' %}">Создать новый пост</a> </h3>
     {% for blog in object_list %}
-        <div><a href="{% url 'blogs:blog' pk=blog.id %}">{{ blog.id }} {{ blog.title }}</a></div>
+        <div>
+            <a href="{% url 'blogs:blog' pk=blog.id %}">{{ blog.id }} {{ blog.title }}</a>
+            {% if blog.author == user %}
+                    <a href="{%  url "blogs:edit_blog" pk=blog.id %}">Редактировать</a>
+            {% endif %}
+            <div>{{ blog.description }}</div>
+        </div>
     {% endfor %}
 {% endblock %}

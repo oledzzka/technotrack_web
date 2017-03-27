@@ -1,0 +1,15 @@
+{% extends 'core/core.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block general_body %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Зарегистрировать">
+        </form>
+    </div>
+{% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'blogs.apps.PostConfig',
     'comments.apps.CommentConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -127,5 +128,10 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'core.User'
 
+LOGIN_REDIRECT_URL = 'home:home'
+LOGIN_URL = 'home:login'
+LOGOUT_REDIRECT_URL = 'home:home'
+
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/oleg/technotrack/web/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')

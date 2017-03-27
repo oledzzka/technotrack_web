@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+    <a href="{% url "blogs:blog_list" %}">All blogs</a>
+    <p>{{ object.title}}</p>
+    <p>{{ object.description}}</p>
+    <p>{{ object.author.username }}</p>
+    <p>{{ object.updated_at}}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Изменить">
+    </form>
+
+{% endblock %}

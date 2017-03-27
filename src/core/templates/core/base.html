@@ -1,11 +1,16 @@
-<html>
-    <head>
-        <title>
-            {% block title %}{% endblock %}
-        </title>
-    </head>
-
-    <body>
-            {% block body %}{% endblock %}
-    </body>
-</html>
+{% extends 'core/core.html' %}
+{% block general_body %}
+    {% if user.is_anonymous %}
+        <h3><a href={% url 'home:login' %}>Войти</a></h3>
+        <h3><a href={% url 'home:registration' %}>Зарегестрировать</a></h3>
+    {% else %}
+        <div>
+            <h3>{{ user.username }}
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" width="5%">
+            {% endif %}
+            <a href={% url 'home:logout' %}>Выйти</a></h3>
+        </div>
+    {% endif %}
+    {% block body %}{% endblock %}
+{% endblock %}
