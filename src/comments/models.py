@@ -13,6 +13,9 @@ class Comment(models.Model):
     text = models.TextField()
     date = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return self.text
+
     class Meta:
         verbose_name = u'Коментарий'
         verbose_name_plural = u'Коментарии'

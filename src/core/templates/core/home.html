@@ -6,6 +6,12 @@
 
 {% block body %}
     <h1><a href="{% url 'blogs:blog_list'%}">Список блогов</a></h1>
-    <p>Количество блогов: <b>{{ blogs_count }}</b></p>
-    <p>Количество постов: <b>{{ posts_count }}</b></p>
+    <button class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+        Количество блогов: <span class="badge">{{ blogs_count }}</span>
+    </button>
+    <button class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+        Количество постов: <span class="badge">{{ posts_count }}</span>
+    </button>
 {% endblock %}

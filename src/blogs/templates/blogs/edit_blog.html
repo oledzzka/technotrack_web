@@ -1,21 +1,61 @@
 {% extends "core/base.html" %}
-
+{% load widget_tweaks %}
 {% block title %}
 
 {% endblock %}
 
-{% block body %}
+{% block navbar %}
+        <a class="navbar-brand" href="{% url "blogs:blog_list" %}">Все блоги</a>
+{% endblock %}
 
-    <a href="{% url "blogs:blog_list" %}">All blogs</a>
-    <p>{{ object.title}}</p>
-    <p>{{ object.description}}</p>
-    <p>{{ object.author.username }}</p>
-    <p>{{ object.updated_at}}</p>
+{% block body %}
+    <div class="panel-body">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            {{ object.title}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <p>Описание: {{ object.description}}</p>
+                                <p>Автор: {{ object.author }}</p>
+                                <p>Дата изменения: {{ object.date}}</p>
+                                {% if object.category.all %}
+                                    <a class="list-group-item active">Категории</a>
+                                    {% for category in  object.category.all%}
+                                        <p class="navbar-link">{{ forloop.counter }}){{ category.name }}<br></p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <form method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Изменить">
+
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Заголовок</label>
+            {% render_field form.title class="form-control" %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Описание</label>
+            {% render_field form.description class="form-control" rows="3"%}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.category.id_for_label }}">Категории</label>
+            {% render_field form.category class="form-control"%}
+        </div>
+        <button type="submit" class="btn btn-primary">Изменить</button>
     </form>
 
 {% endblock %}

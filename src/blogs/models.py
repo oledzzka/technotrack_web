@@ -12,6 +12,8 @@ class Category(models.Model):
     class Meta:
         verbose_name = u'Категория'
         verbose_name_plural = u'Категории'
+    def __unicode__(self):
+        return self.name
 
 class Blog(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='blog')
@@ -19,6 +21,9 @@ class Blog(models.Model):
     date = models.DateTimeField(auto_now=True)
     description = models.TextField(default='')
     category = models.ManyToManyField(Category,related_name='blog')
+
+    def __unicode__(self):
+        return self.title
 
     class Meta:
         verbose_name = u'Блог'
@@ -30,6 +35,9 @@ class Post(models.Model):
     description = models.TextField()
     blog = models.ForeignKey(Blog, related_name='posts')
     date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
 
     class Meta:
         verbose_name = u'Пост'

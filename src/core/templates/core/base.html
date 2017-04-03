@@ -1,16 +1,26 @@
 {% extends 'core/core.html' %}
-{% block general_body %}
-    {% if user.is_anonymous %}
-        <h3><a href={% url 'home:login' %}>Войти</a></h3>
-        <h3><a href={% url 'home:registration' %}>Зарегестрировать</a></h3>
-    {% else %}
-        <div>
-            <h3>{{ user.username }}
-            {% if user.avatar %}
-                <img src="{{ user.avatar.url }}" width="5%">
-            {% endif %}
-            <a href={% url 'home:logout' %}>Выйти</a></h3>
-        </div>
-    {% endif %}
-    {% block body %}{% endblock %}
-{% endblock %}
+{% load static %}
+    {% block navbar_login %}
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    {% if user.is_anonymous %}
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Не авторезирован<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href={% url 'home:login' %}>Войти</a></li>
+                            <li><a href={% url 'home:registration' %}>Зарегестрировать</a></li>
+                        </ul>
+                    {% else %}
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ user.username }}
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }} " width="50 em" height="50 em" class="img-circle">
+                        {% endif %}
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href={% url 'home:logout' %}>Выйти</a></li>
+                        </ul>
+                    {% endif %}
+                </li>
+            </ul>
+    {% endblock %}

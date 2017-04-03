@@ -1,15 +1,30 @@
 {% extends 'core/core.html' %}
-
+{% load widget_tweaks %}
 {% block title %}
     Register
 {% endblock %}
 
-{% block general_body %}
-    <div>
-        <form method="post">
+{% block body %}
+     <form method="post">
             {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Зарегистрировать">
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username|add_class:'form-control'|attr:'placeholder: Example'}}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                {{ form.password1|add_class:'form-control'|attr:'placeholder: Example'}}
+                <p class="help-block">{{ form.password1.error }}</p>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                {{ form.password2|add_class:'form-control'|attr:'placeholder: Example'}}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.avatar.id_for_label }}">Avatar</label>
+                {{ form.avatar }}
+                <span class="help-block">Choose file with avatar</span>
+            </div>
+            <button type="submit" class="btn btn-default">Зарегестрироваться</button>
         </form>
-    </div>
 {% endblock %}

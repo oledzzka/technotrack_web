@@ -84,7 +84,7 @@ class UpdatePost(UpdateView):
 
     template_name = "blogs/edit_post.html"
     model = Post
-    fields = ('title', 'description','category')
+    fields = ('title', 'description')
 
     def get_success_url(self):
         return resolve_url('blogs:post', pk=self.object.id)

@@ -1,27 +1,46 @@
 {% extends 'core/base.html' %}
-
+{% load widget_tweaks %}
 {% block title %}
         All blogs
 {% endblock %}
 
-{% block body %}
-    <h3><a href="{% url "home:home" %}">Домой</a></h3>
-    <div>
-        <form method="get" action="{% url "blogs:blog_list" %}">
-            {{ sortform.sort }}
-            {{ sortform.search.label_tag }}{{ sortform.search }}
-            <input type="submit">
-        </form>
-    </div>
-    <h2><a href="{%  url "blogs:add_blog" %}">Создать новый блог</a></h2>
-    <h3><a href="{% url 'blogs:add_post' %}">Создать новый пост</a> </h3>
-    {% for blog in object_list %}
-        <div>
-            <a href="{% url 'blogs:blog' pk=blog.id %}">{{ blog.id }} {{ blog.title }}</a>
-            {% if blog.author == user %}
-                    <a href="{%  url "blogs:edit_blog" pk=blog.id %}">Редактировать</a>
-            {% endif %}
-            <div>{{ blog.description }}</div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+     {% block navbar %}
+        <form  method="get" action="{% url "blogs:blog_list" %}">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Сортировка<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                {% for field in sortform.sort %}
+                    <li><a>{{ field }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+        </ul>
+    <div class="navbar-form navbar-left">
+        <div class="form-group">
+          {% render_field sortform.search type="text" class="form-control" placeholder="Search" %}
         </div>
+        <button type="submit" class="btn btn-default">Поиск</button>
+    </div>
+    </form>
+      <ul class="nav navbar-nav navbar-left">
+          <li><a href="{%  url "blogs:add_blog" %}">Создать новый блог</a></li>
+          <li><a href="{% url 'blogs:add_post' %}">Создать новый пост</a></li>
+      </ul>
+     {% endblock %}
+{% block body %}
+
+    <div class="list-group">
+    <a href="#" class="list-group-item active">Блоги</a>
+    {% for blog in object_list %}
+            <div class="list-group-item">
+                {% if blog.author == user %}
+                    <a href="{% url "blogs:edit_blog" pk=blog.id%}" class="badge pull-right">Редактировать</a>
+                {% endif %}
+                <a href="{% url "blogs:blog" pk=blog.id%}" class="navbar-link">{{ blog.title }}</a>
+                <div class="list-group-item-text">{{ blog.description }}</div>
+            </div>
     {% endfor %}
+    </div>
 {% endblock %}

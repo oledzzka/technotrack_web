@@ -1,16 +1,23 @@
 {% extends 'core/base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}
     New Post
 {% endblock %}
-
+{% block navbar %}
+    <a class="navbar-brand" href={% url 'blogs:blog_list' %}>Список Блогов</a>
+{% endblock %}
 {% block body %}
-    <a href={% url 'blogs:blog_list' %}>Список Блогов</a>
-    <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Создать пост">
-        </form>
-    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Заголовок</label>
+            {% render_field form.title class="form-control" %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Описание</label>
+            {% render_field form.description class="form-control" rows="3"%}
+        </div>
+        <button type="submit" class="btn btn-primary">Создать пост</button>
+    </form>
 {% endblock %}

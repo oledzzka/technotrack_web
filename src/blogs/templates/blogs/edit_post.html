@@ -1,21 +1,53 @@
 {% extends "core/base.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
 
 {% endblock %}
 
+{% block navbar %}
+    <a class="navbar-brand" href="{% url "blogs:blog" pk=object.blog.id%}">Назад</a>
+{% endblock %}
+
 {% block body %}
 
-    <a href="{% url "blogs:blog" pk=object.blog.id%}">Блог</a>
-    <p>{{ object.title}}</p>
-    <p>{{ object.description}}</p>
-    <p>{{ object.author.username }}</p>
-    <p>{{ object.updated_at}}</p>
+    <div class="panel-body">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            {{ object.title}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <p>Описание: {{ object.description}}</p>
+                                <p>Автор: {{ object.blog.author }}</p>
+                                <p>Дата изменения: {{ object.date}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <form method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Изменить">
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Заголовок</label>
+            {% render_field form.title class="form-control" %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Описание</label>
+            {% render_field form.description class="form-control" rows="3"%}
+        </div>
+        <button type="submit" class="btn btn-primary">Изменить</button>
     </form>
 
 {% endblock %}
