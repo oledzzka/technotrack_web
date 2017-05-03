@@ -6,8 +6,8 @@
                     {% if user.is_anonymous %}
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Не авторезирован<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href={% url 'home:login' %}>Войти</a></li>
-                            <li><a href={% url 'home:registration' %}>Зарегестрировать</a></li>
+                            <li><a class='dialog-link' href={% url 'home:login' %}>Войти</a></li>
+                            <li><a class='dialog-link' href={% url 'home:registration' %}>Зарегестрировать</a></li>
                         </ul>
                     {% else %}
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

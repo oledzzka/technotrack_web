@@ -1,0 +1,17 @@
+
+<body>
+    {% if object.comments.all %}
+        <h4>Коментарии</h4>
+        {% for comment in object.comments.all %}
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Автор: {{ comment.author  }}</h3><br>
+                </div>
+                <div class="panel-body">
+                    {{ comment.text }}<br>
+                    Дата: {{ comment.date }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</body>

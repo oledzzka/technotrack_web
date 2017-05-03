@@ -9,9 +9,10 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ blog.title  }}</h3><br>
+        <h3 class="panel-title">{{ blog.title }}</h3><br>
     </div>
     <div class="panel-body">
         <div class="panel-group" id="accordion">
@@ -31,7 +32,7 @@
                                 <p>Дата: {{ object.date }}</p><br>
                                 {% if object.category.all %}
                                     <a class="list-group-item active">Категории</a>
-                                    {% for category in  object.category.all%}
+                                    {% for category in  object.category.all %}
                                         <p class="navbar-link">{{ forloop.counter }}){{ category.name }}<br></p>
                                     {% endfor %}
                                 {% endif %}
@@ -47,10 +48,12 @@
                 {% for post in object.posts.all %}
                     <div class="list-group-item">
                         {% if blog.author == user %}
-                            <a href="{% url "blogs:edit_post" pk=post.id%}" class="badge pull-right">Редактировать</a>
+                            <a href="{% url "blogs:edit_post" pk=post.id %}" class="badge pull-right dialog-link">Редактировать</a>
                         {% endif %}
-                        <a href="{% url "blogs:post" pk=post.id%}" class="navbar-link">{{ post.title }}</a>
-                        <div class="list-group-item-text">{{ blog.description }}</div>
+                        <a href="{% url "blogs:post" pk=post.id %}" class="navbar-link">{{ post.title }}</a>
+                        <div class="list-group-item-text">{{ post.description }}</div>
+                        <span id="likes-{{ post.id }}">Количество лайков поста</span>
+                        <button class="btn ajaxlike likecount" data-url-count="{% url 'blogs:likecount' %}" data-url="{% url "blogs:post_ajax_like" pk=post.id %}" data-postid="{{ post.id }}">{{ post.likes.count }}</button>
                     </div>
                 {% endfor %}
             {% endif %}

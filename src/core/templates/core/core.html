@@ -4,27 +4,44 @@
     <head>
         <script src="{% static "core/bootstrap/jquery/jquery.min.js" %}"></script>
         <script src="{% static "core/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "core/bootstrap/base.js" %}"></script>
+        <script src="{% static "core/choosen/chosen.jquery.js" %}"></script>
         <link rel="stylesheet" href="{% static "core/bootstrap/dist/css/bootstrap.min.css" %}">
         <link rel="stylesheet" href="{% static "core/style.css" %}">
+        <link rel="stylesheet" href="{% static "core/choosen/bootstrap-choosen/bootstrap-chosen.css" %}">
+        <meta name="csrf" content="{{ csrf_token }}">
         <title>
             {% block title %}{% endblock %}
         </title>
     </head>
 
     <body>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
     <nav class="navbar-inverse navbar-default">
         <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header navbar-left">
                 <a class="navbar-brand" href="{% url "home:home" %}">Домой</a>
             </div>
-            <div class="navbar-right">
-                {% block navbar_login %}
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="navbar-right">
+                    {% block navbar_login %}
+                    {% endblock %}
+                </div>
+
+                {% block navbar %}
                 {% endblock %}
             </div>
-            {% block navbar %}
-            {% endblock %}
-
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

@@ -1,61 +1,19 @@
-{% extends "core/base.html" %}
 {% load widget_tweaks %}
-{% block title %}
-
-{% endblock %}
-
-{% block navbar %}
-        <a class="navbar-brand" href="{% url "blogs:blog_list" %}">Все блоги</a>
-{% endblock %}
-
-{% block body %}
-    <div class="panel-body">
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            {{ object.title}}
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <p>Описание: {{ object.description}}</p>
-                                <p>Автор: {{ object.author }}</p>
-                                <p>Дата изменения: {{ object.date}}</p>
-                                {% if object.category.all %}
-                                    <a class="list-group-item active">Категории</a>
-                                    {% for category in  object.category.all%}
-                                        <p class="navbar-link">{{ forloop.counter }}){{ category.name }}<br></p>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<form method="post" class="ajax-form" action="{% url "blogs:edit_blog" pk=blog.id %}">
+    {% csrf_token %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Редактирование блога: {{ object.title }}</h4>
     </div>
-
-    <form method="post">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <label for="{{ form.title.id_for_label }}">Заголовок</label>
-            {% render_field form.title class="form-control" %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.description.id_for_label }}">Описание</label>
-            {% render_field form.description class="form-control" rows="3"%}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.category.id_for_label }}">Категории</label>
-            {% render_field form.category class="form-control"%}
-        </div>
+    <label>Название</label>
+    {% render_field form.title type="text" class="form-control" placeholder="Название" %}
+    <label>Описание</label>
+    {% render_field form.description type="text" class="form-control chosen-select" placeholder="Описание" %}
+    <label>Категории</label>
+    {% render_field form.category %}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
         <button type="submit" class="btn btn-primary">Изменить</button>
-    </form>
-
-{% endblock %}
+    </div>
+</form>

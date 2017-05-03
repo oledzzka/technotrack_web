@@ -19,20 +19,22 @@
                     Дата: {{ post.date }}
                 </div>
     </div>
-    {% if post.comments.all %}
-        <h4><font color="#fffff0">Коментарии</font></h4>
-        {% for comment in post.comments.all %}
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Автор: {{ comment.author  }}</h3><br>
+    <div class="comments_div" data-url="{% url 'blogs:post_comments' pk=post.id %}">
+        {% if post.comments.all %}
+            <h4>Коментарии</h4>
+            {% for comment in post.comments.all %}
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Автор: {{ comment.author  }}</h3><br>
+                    </div>
+                    <div class="panel-body">
+                        {{ comment.text }}<br>
+                        Дата: {{ comment.date }}
+                    </div>
                 </div>
-                <div class="panel-body">
-                    {{ comment.text }}<br>
-                    Дата: {{ comment.date }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
     {% if not user.is_anonymous %}
         <form method="post">
             {% csrf_token %}
