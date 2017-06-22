@@ -9,9 +9,9 @@
     <label>Название</label>
     {% render_field form.title type="text" class="form-control" placeholder="Название" %}
     <label>Описание</label>
-    {% render_field form.description type="text" class="form-control chosen-select" placeholder="Описание" %}
+    {% render_field form.description type="text" class="form-control" placeholder="Описание" %}
     <label>Категории</label>
-    {% render_field form.category %}
+    {% render_field form.category class="chosen-select"%}
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
         <button type="submit" class="btn btn-primary">Изменить</button>

@@ -44,7 +44,9 @@ $(document).ready(function () {
 
     $('.dialog-link').click(function () {
         $('#exampleModal').modal();
-        $('.modal-body').load($(this).attr('href'));
+        $('.modal-body').load($(this).attr('href'), function() {
+            $('.chosen-select').chosen();
+          });
         return false
     });
 
@@ -81,10 +83,6 @@ $(document).ready(function () {
         return false;
     });
 
-     $(function() {
-        $('.chosen-select').chosen();
-        $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-      });
 
     $(document).on('click', 'button.ajaxlike', function (e) {
         var data = $(this).data();
@@ -94,5 +92,6 @@ $(document).ready(function () {
         })
         return false;
     });
+
 
 });
